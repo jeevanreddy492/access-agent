@@ -11,6 +11,21 @@ ENTITLEMENTS = {
     "bob": [],
 }
 
+# roles that exist and can be requested
+ROLES = {"report-viewer", "billing-admin", "ops-admin"}
+
+
+def user_exists(user_id):
+    return user_id in ENTITLEMENTS
+
+
+def role_exists(role_id):
+    return role_id in ROLES
+
+
+def user_has_role(user_id, role_id):
+    return role_id in ENTITLEMENTS.get(user_id, [])
+
 
 def post_access_request(token, user_id, role_id):
     if token not in TOKENS:
